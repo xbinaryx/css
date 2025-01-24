@@ -17,7 +17,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "typings"
   ],
   "publishConfig": {
     "access": "public"
@@ -69,13 +70,13 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@eslint/plugin-kit": "^0.2.3",
+    "@eslint/core": "^0.10.0",
+    "@eslint/plugin-kit": "^0.2.5",
+    "@types/css-tree": "file:./typings/css-tree",
     "css-tree": "^3.1.0"
   },
   "devDependencies": {
-    "@eslint/core": "^0.7.0",
     "@eslint/json": "^0.5.0",
-    "@types/eslint": "^8.56.10",
     "c8": "^9.1.0",
     "dedent": "^1.5.3",
     "eslint": "^9.11.1",

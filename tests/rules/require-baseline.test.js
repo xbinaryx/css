@@ -34,6 +34,8 @@ ruleTester.run("require-baseline", rule, {
 		"a { color: red; -moz-transition: bar }",
 		"@font-face { font-weight: 100 400 }",
 		"@media (min-width: 800px) { a { color: red; } }",
+		"@media (foo) { a { color: red; } }",
+		"@media (prefers-color-scheme: dark) { a { color: red; } }",
 		"@supports (accent-color: auto) { a { accent-color: auto; } }",
 		"@supports (accent-color: red) { a { accent-color: red; } }",
 		"@supports (accent-color: auto) { a { accent-color: red; } }",
@@ -180,7 +182,7 @@ ruleTester.run("require-baseline", rule, {
 				@supports (backdrop-filter: auto) {
 					a { accent-color: red; }
 				}
-				
+
 				a { backdrop-filter: auto; }
 			}`,
 			errors: [
@@ -259,6 +261,82 @@ ruleTester.run("require-baseline", rule, {
 					column: 12,
 					endLine: 1,
 					endColumn: 28,
+				},
+			],
+		},
+		{
+			code: "@media (color-gamut: srgb) { a { color: red; } }",
+			errors: [
+				{
+					messageId: "notBaselineMediaCondition",
+					data: {
+						condition: "color-gamut",
+						availability: "widely",
+					},
+					line: 1,
+					column: 9,
+					endLine: 1,
+					endColumn: 20,
+				},
+			],
+		},
+		{
+			code: "@media (device-posture: folded) { a { color: red; } }",
+			options: [{ available: "newly" }],
+			errors: [
+				{
+					messageId: "notBaselineMediaCondition",
+					data: {
+						condition: "device-posture",
+						availability: "newly",
+					},
+					line: 1,
+					column: 9,
+					endLine: 1,
+					endColumn: 23,
+				},
+			],
+		},
+		{
+			code: "@media (height: 600px) and (color-gamut: srgb) and (device-posture: folded) { a { color: red; } }",
+			errors: [
+				{
+					messageId: "notBaselineMediaCondition",
+					data: {
+						condition: "color-gamut",
+						availability: "widely",
+					},
+					line: 1,
+					column: 29,
+					endLine: 1,
+					endColumn: 40,
+				},
+				{
+					messageId: "notBaselineMediaCondition",
+					data: {
+						condition: "device-posture",
+						availability: "widely",
+					},
+					line: 1,
+					column: 53,
+					endLine: 1,
+					endColumn: 67,
+				},
+			],
+		},
+		{
+			code: "@media (foo) and (color-gamut: srgb) { a { color: red; } }",
+			errors: [
+				{
+					messageId: "notBaselineMediaCondition",
+					data: {
+						condition: "color-gamut",
+						availability: "widely",
+					},
+					line: 1,
+					column: 19,
+					endLine: 1,
+					endColumn: 30,
 				},
 			],
 		},

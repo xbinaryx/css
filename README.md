@@ -23,8 +23,9 @@ bun install @eslint/css -D
 For Deno:
 
 ```shell
-deno add @eslint/css
+deno add jsr:@eslint/css
 ```
+> **Note:** ESLint support in Deno is experimental and not officially supported.
 
 ### Configurations
 

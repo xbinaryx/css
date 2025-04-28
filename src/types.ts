@@ -31,7 +31,7 @@ type WithExit<RuleVisitorType extends RuleVisitor> = {
 /**
  * A CSS syntax element, including nodes and comments.
  */
-export type CSSSyntaxElement = CssNodePlain | Comment;
+export type CSSSyntaxElement = CssNodePlain;
 
 type CSSNodeVisitor = {
 	[Type in CssNodeNames]: (

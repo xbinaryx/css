@@ -36,18 +36,20 @@ In your `eslint.config.js` file, import `@eslint/css` and include the recommende
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 
-export default [
+export default defineConfig([
 	// lint CSS files
 	{
 		files: ["**/*.css"],
 		language: "css/css",
-		...css.configs.recommended,
+		plugins: { css },
+		extends: ["css/recommended"],
 	},
 
 	// your other configs here
-];
+]);
 ```
 
 ### Rules
@@ -74,9 +76,10 @@ In order to individually configure a rule in your `eslint.config.js` file, impor
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 
-export default [
+export default defineConfig([
 	{
 		files: ["**/*.css"],
 		plugins: {
@@ -87,7 +90,7 @@ export default [
 			"css/no-empty-blocks": "error",
 		},
 	},
-];
+]);
 ```
 
 You can individually config, disable, and enable rules in CSS using comments, such as:
@@ -119,9 +122,10 @@ In order to individually configure a language in your `eslint.config.js` file, i
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 
-export default [
+export default defineConfig([
 	{
 		files: ["**/*.css"],
 		plugins: {
@@ -132,7 +136,7 @@ export default [
 			"css/no-empty-blocks": "error",
 		},
 	},
-];
+]);
 ```
 
 #### Tolerant Mode
@@ -141,9 +145,10 @@ By default, the CSS parser runs in strict mode, which reports all parsing errors
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 
-export default [
+export default defineConfig([
 	{
 		files: ["**/*.css"],
 		plugins: {
@@ -157,7 +162,7 @@ export default [
 			"css/no-empty-blocks": "error",
 		},
 	},
-];
+]);
 ```
 
 Setting `tolerant` to `true` is necessary if you are using custom syntax, such as [PostCSS](https://postcss.org/) plugins, that aren't part of the standard CSS syntax.
@@ -176,9 +181,10 @@ You can configure that syntax as follows:
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 
-export default [
+export default defineConfig([
 	{
 		files: ["**/*.css"],
 		plugins: {
@@ -198,7 +204,7 @@ export default [
 			"css/no-empty-blocks": "error",
 		},
 	},
-];
+]);
 ```
 
 #### Configuring Tailwind Syntax
@@ -207,10 +213,11 @@ export default [
 
 ```js
 // eslint.config.js
+import { defineConfig } from "eslint/config";
 import css from "@eslint/css";
 import { tailwindSyntax } from "@eslint/css/syntax";
 
-export default [
+export default defineConfig([
 	{
 		files: ["**/*.css"],
 		plugins: {
@@ -224,7 +231,7 @@ export default [
 			"css/no-empty-blocks": "error",
 		},
 	},
-];
+]);
 ```
 
 **Note:** The Tailwind syntax doesn't currently provide for the `theme()` function. This is a [limitation of CSSTree](https://github.com/csstree/csstree/issues/292) that we hope will be resolved soon.

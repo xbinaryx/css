@@ -4,9 +4,6 @@ on:
             - main
 name: release-please
 
-permissions:
-    models: read
-
 jobs:
     release-please:
         runs-on: ubuntu-latest
@@ -14,6 +11,7 @@ jobs:
             contents: write
             pull-requests: write
             id-token: write
+            models: read
         steps:
             - uses: googleapis/release-please-action@v4
               id: release

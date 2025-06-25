@@ -27,11 +27,17 @@ ruleTester.run("no-invalid-named-grid-areas", rule, {
 	valid: [
 		".grid { grid-template-areas: 1fr / auto 1fr auto; }",
 		'.grid { grid-template-areas: "a a a" "b b b"; }',
+		'.grid { grid-template-areas: " a a a " "b b b"; }',
 		'.grid { GRID-TEMPLATE-AREAS: "a a a" "b b b"; }',
 		dedent`
         .grid { grid-template-areas: "head head"
                                      "nav  main"
 						             "nav  foot"; 
+        }`,
+		dedent`
+        .grid { grid-template-areas: "head      head"
+                                     "nav       main"
+						             "nav       foot"; 
         }`,
 		dedent`
         .grid { grid-template-areas: 
@@ -77,9 +83,9 @@ ruleTester.run("no-invalid-named-grid-areas", rule, {
 					messageId: "nonRectangularGridArea",
 					data: { name: "a" },
 					line: 1,
-					column: 26,
+					column: 34,
 					endLine: 1,
-					endColumn: 33,
+					endColumn: 41,
 				},
 			],
 		},
@@ -90,17 +96,17 @@ ruleTester.run("no-invalid-named-grid-areas", rule, {
 					messageId: "nonRectangularGridArea",
 					data: { name: "a" },
 					line: 1,
-					column: 26,
+					column: 34,
 					endLine: 1,
-					endColumn: 33,
+					endColumn: 41,
 				},
 				{
 					messageId: "nonRectangularGridArea",
 					data: { name: "c" },
 					line: 1,
-					column: 26,
+					column: 34,
 					endLine: 1,
-					endColumn: 33,
+					endColumn: 41,
 				},
 			],
 		},
@@ -115,10 +121,10 @@ ruleTester.run("no-invalid-named-grid-areas", rule, {
 				{
 					messageId: "nonRectangularGridArea",
 					data: { name: "header" },
-					line: 2,
-					column: 28,
-					endLine: 2,
-					endColumn: 57,
+					line: 4,
+					column: 11,
+					endLine: 4,
+					endColumn: 40,
 				},
 			],
 		},

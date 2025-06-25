@@ -29,6 +29,7 @@ const nullCellToken = /^\.+$/u;
  */
 function findNonRectangularAreas(grid) {
 	const errors = [];
+	const reported = new Set();
 	const names = [...new Set(grid.flat())].filter(
 		name => !nullCellToken.test(name),
 	);
@@ -59,8 +60,11 @@ function findNonRectangularAreas(grid) {
 					row1.length !== row2.length ||
 					!row1.every((val, idx) => val === row2[idx])
 				) {
-					const firstRow = grid.findIndex(r => r.includes(name));
-					errors.push({ name, row: firstRow });
+					const key = `${name}|${j}`;
+					if (!reported.has(key)) {
+						errors.push({ name, row: j });
+						reported.add(key);
+					}
 				}
 			}
 		}

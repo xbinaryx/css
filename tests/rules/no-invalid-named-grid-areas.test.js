@@ -90,28 +90,36 @@ ruleTester.run("no-invalid-named-grid-areas", rule, {
 			],
 		},
 		{
-			code: 'a { grid-template-areas: "a a" "a ."; }',
+			code: dedent`
+			a { grid-template-areas:
+			        "a a"
+			        "a ."; 
+			}`,
 			errors: [
 				{
 					messageId: "nonRectangularGridArea",
 					data: { name: "a" },
-					line: 1,
-					column: 32,
-					endLine: 1,
-					endColumn: 37,
+					line: 3,
+					column: 9,
+					endLine: 3,
+					endColumn: 14,
 				},
 			],
 		},
 		{
-			code: 'a { grid-template-areas: ". y y" "y y ."; }',
+			code: dedent`
+			a { grid-template-areas:
+			        ". y y"
+			        "y y .";
+			}`,
 			errors: [
 				{
 					messageId: "nonRectangularGridArea",
 					data: { name: "y" },
-					line: 1,
-					column: 34,
-					endLine: 1,
-					endColumn: 41,
+					line: 3,
+					column: 9,
+					endLine: 3,
+					endColumn: 16,
 				},
 			],
 		},

@@ -31,6 +31,20 @@ ruleTester.run("relative-font-units", rule, {
 		"a { font-size: var(--foo); }",
 		"a { font: Arial var(-foo); }",
 		"a { font-size: calc(10px + 2px); }",
+		"a { font-size: smaller; }",
+		"a { font: smaller Arial, sans-serif; }",
+		"a { font-size: larger; }",
+		"a { font: larger Arial, sans-serif; }",
+		"a { font-size: inherit; }",
+		"a { font: inherit Arial, sans-serif; }",
+		"a { font-size: initial; }",
+		"a { font: initial Arial, sans-serif; }",
+		"a { font-size: revert; }",
+		"a { font: revert Arial, sans-serif; }",
+		"a { font-size: revert-layer; }",
+		"a { font: revert-layer Arial, sans-serif; }",
+		"a { font-size: unset; }",
+		"a { font: unset Arial, sans-serif; }",
 		{
 			code: "a { font-size: 1em; }",
 			options: [
@@ -204,6 +218,38 @@ ruleTester.run("relative-font-units", rule, {
 			options: [
 				{
 					allowUnits: ["rem", "em"],
+				},
+			],
+		},
+		{
+			code: "a { font-size: smaller; }",
+			options: [
+				{
+					allowUnits: ["em"],
+				},
+			],
+		},
+		{
+			code: "a { font: larger Arial, sans-serif; }",
+			options: [
+				{
+					allowUnits: ["em"],
+				},
+			],
+		},
+		{
+			code: "a { font-size: inherit; }",
+			options: [
+				{
+					allowUnits: ["em"],
+				},
+			],
+		},
+		{
+			code: "a { font: unset Arial, sans-serif; }",
+			options: [
+				{
+					allowUnits: ["em"],
 				},
 			],
 		},
@@ -574,38 +620,6 @@ ruleTester.run("relative-font-units", rule, {
 			],
 		},
 		{
-			code: "a { font-size: smaller; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: smaller Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: larger; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: larger Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
 			code: "a { font-size: math; }",
 			errors: [
 				{
@@ -615,86 +629,6 @@ ruleTester.run("relative-font-units", rule, {
 		},
 		{
 			code: "a { font: math Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: inherit; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: inherit Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: initial; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: initial Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: revert; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: revert Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: revert-layer; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: revert-layer Arial, sans-serif; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font-size: unset; }",
-			errors: [
-				{
-					messageId: "allowedFontUnits",
-				},
-			],
-		},
-		{
-			code: "a { font: unset Arial, sans-serif; }",
 			errors: [
 				{
 					messageId: "allowedFontUnits",

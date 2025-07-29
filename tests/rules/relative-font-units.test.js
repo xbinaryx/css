@@ -29,7 +29,7 @@ ruleTester.run("relative-font-units", rule, {
 		"a { font: 2rem Arial, sans-serif; }",
 		"a { font: 1.2rem/2 Arial, sans-serif; }",
 		"a { font-size: var(--foo); }",
-		"a { font: Arial var(-foo); }",
+		"a { font: var(--foo) Arial; }",
 		"a { font-size: calc(10px + 2px); }",
 		"a { font-size: smaller; }",
 		"a { font: smaller Arial, sans-serif; }",

@@ -119,7 +119,7 @@ Example of **correct** code for `{ allowUnits: ["em", "%"] }` option:
 }
 
 .c {
-	font: Arial var(--foo);
+	font: var(--foo) Arial;
 }
 
 .d {

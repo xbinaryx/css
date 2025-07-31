@@ -105,7 +105,9 @@ export default {
 							(value.type === "Dimension" &&
 								!allowedFontUnits.includes(value.unit)) ||
 							(value.type === "Identifier" &&
-								disallowedFontSizeKeywords.has(value.name)) ||
+								disallowedFontSizeKeywords.has(
+									value.name.toLowerCase(),
+								)) ||
 							(value.type === "Percentage" &&
 								!allowedFontUnits.includes("%"))
 						) {
@@ -151,7 +153,7 @@ export default {
 								check:
 									identifierNode &&
 									disallowedFontSizeKeywords.has(
-										identifierNode.name,
+										identifierNode.name.toLowerCase(),
 									),
 								loc: identifierNode?.loc,
 							},

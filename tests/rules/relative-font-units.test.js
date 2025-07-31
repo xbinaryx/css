@@ -827,5 +827,293 @@ ruleTester.run("relative-font-units", rule, {
 				},
 			],
 		},
+		{
+			code: "a { font-size: XX-SMALL; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: XX-SMALL Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: X-SMALL; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: X-SMALL Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: SMALL; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: SMALL Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: MEDIUM; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: MEDIUM Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: LARGE; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: LARGE Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: X-LARGE; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: X-LARGE Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: XX-LARGE; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: XX-LARGE Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: XXX-LARGE; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: XXX-LARGE Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: MATH; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: MATH Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Xx-Small; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Xx-Small Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: X-Small; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: X-Small Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Small; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Small Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Medium; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Medium Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Large; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Large Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: X-Large; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: X-Large Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Xx-Large; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Xx-Large Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Xxx-Large; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Xxx-Large Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font-size: Math; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
+		{
+			code: "a { font: Math Arial, sans-serif; }",
+			errors: [
+				{
+					messageId: "allowedFontUnits",
+				},
+			],
+		},
 	],
 });

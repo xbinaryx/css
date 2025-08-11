@@ -28,7 +28,7 @@ import { isSyntaxMatchError, isSyntaxReferenceError } from "../util.js";
 /**
  * Regex to match var() functional notation with optional fallback.
  */
-const varFunctionPattern = /var\(\s*(--[^,\s)]+)\s*(?:,\s*(.+))?\)/u;
+const varFunctionPattern = /var\(\s*(--[^,\s)]+)\s*(?:,\s*(.+))?\)/iu;
 
 /**
  * Parses a var() function text and extracts the custom property name and fallback.
@@ -70,7 +70,7 @@ function getVarFallbackList(value) {
 		}
 
 		// If fallback is not another var(), we're done
-		if (!parsed.fallbackText.includes("var(")) {
+		if (!parsed.fallbackText.toLowerCase().includes("var(")) {
 			list.push(parsed.fallbackText);
 			break;
 		}
@@ -238,7 +238,7 @@ export default {
 				replacements.push(new Map());
 			},
 
-			"Function[name=var]"(node) {
+			"Function[name=/^var$/i]"(node) {
 				const map = replacements.at(-1);
 				if (!map) {
 					return;
@@ -277,7 +277,10 @@ export default {
 					// When `var()` is used, we store all the values to `valueList` with the replacement of `var()` with there values or fallback values
 					for (const child of valueNodes) {
 						// If value is a function starts with `var()`
-						if (child.type === "Function" && child.name === "var") {
+						if (
+							child.type === "Function" &&
+							child.name.toLowerCase() === "var"
+						) {
 							const varValue = vars.get(child.children[0].name);
 
 							// If the variable is found, use its value, otherwise check for fallback values

@@ -152,6 +152,22 @@ export default {
 			const fallbackStack = [];
 			let currentVarName = variableName;
 
+			/*
+			 * Resolves a CSS variable by following its reference chain.
+			 *
+			 * Phase 1: Follow var() references
+			 * - Use `seen` to detect cycles
+			 * - Use `cache` for memoization
+			 * - If value is concrete: cache and return
+			 * - If value is another var(--next, <fallback>):
+			 *     push fallback to stack and continue with --next
+			 * - If variable unknown: proceed to Phase 2
+			 *
+			 * Phase 2: Try fallback values (if Phase 1 failed)
+			 * - Process fallbacks in reverse order (LIFO)
+			 * - Resolve each via resolveFallback()
+			 * - Return first successful resolution
+			 */
 			while (true) {
 				if (seen.has(currentVarName)) {
 					break;
@@ -183,9 +199,6 @@ export default {
 
 			while (fallbackStack.length > 0) {
 				const fallbackText = fallbackStack.pop();
-				if (!fallbackText) {
-					continue;
-				}
 				// eslint-disable-next-line no-use-before-define -- resolveFallback and resolveVariable are mutually recursive
 				const resolvedFallback = resolveFallback(
 					fallbackText,
@@ -209,10 +222,9 @@ export default {
 		 * @returns {string | null}
 		 */
 		function resolveFallback(rawFallbackText, cache, seen = new Set()) {
-			const trimmedFallback = rawFallbackText.trim();
-			const fallbackVarList = getVarFallbackList(trimmedFallback);
+			const fallbackVarList = getVarFallbackList(rawFallbackText);
 			if (fallbackVarList.length === 0) {
-				return trimmedFallback;
+				return rawFallbackText;
 			}
 
 			for (const fallbackCandidate of fallbackVarList) {
@@ -270,7 +282,11 @@ export default {
 
 				if (usingVars) {
 					const valueList = [];
-					/** @type {Map<string,string>} */
+					/**
+					 * Cache for resolved variable values within this single declaration.
+					 * Prevents re-resolving the same variable and re-walking long `var()` chains.
+					 * @type {Map<string,string>}
+					 */
 					const resolvedCache = new Map();
 					const valueNodes = node.value.children;
 

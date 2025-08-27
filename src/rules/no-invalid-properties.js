@@ -28,6 +28,7 @@ import { isSyntaxMatchError, isSyntaxReferenceError } from "../util.js";
 /**
  * Regex to match var() functional notation with optional fallback.
  */
+// eslint-disable-next-line regexp/no-super-linear-backtracking --  TODO: fix \s*(.+) to match newline characters
 const varFunctionPattern = /var\(\s*(--[^,\s)]+)\s*(?:,\s*(.+))?\)/iu;
 
 /**

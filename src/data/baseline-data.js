@@ -185,6 +185,7 @@ export const properties = new Map([
 	["scale", "10:2022"],
 	["translate", "10:2022"],
 	["initial-letter", "0:"],
+	["interactivity", "0:"],
 	["interpolate-size", "0:"],
 	["isolation", "10:2020"],
 	["direction", "10:2015"],
@@ -341,6 +342,7 @@ export const properties = new Map([
 	["print-color-adjust", "5:2025"],
 	["quotes", "10:2015"],
 	["reading-flow", "0:"],
+	["reading-order", "0:"],
 	["resize", "0:"],
 	["ruby-align", "5:2024"],
 	["ruby-overhang", "0:"],
@@ -559,6 +561,8 @@ export const mediaConditions = new Map([
 	["-webkit-transform-3d", "10:2016"],
 	["update", "5:2023"],
 	["video-dynamic-range", "0:"],
+	["horizontal-viewport-segments", "0:"],
+	["vertical-viewport-segments", "0:"],
 ]);
 export const types = new Map([
 	["abs", "5:2025"],
@@ -569,7 +573,7 @@ export const types = new Map([
 	["attr", "10:2015"],
 	["calc", "10:2015"],
 	["calc-size", "0:"],
-	["rect", "0:"],
+	["rect", "5:2024"],
 	["color-mix", "5:2023"],
 	["conic-gradient", "10:2020"],
 	["repeating-conic-gradient", "10:2020"],
@@ -622,7 +626,7 @@ export const types = new Map([
 	["ellipse", "10:2020"],
 	["inset", "10:2020"],
 	["polygon", "10:2020"],
-	["xywh", "0:"],
+	["xywh", "5:2024"],
 	["steps", "10:2015"],
 	["matrix", "10:2015"],
 	["rotate", "10:2015"],
@@ -682,6 +686,8 @@ export const selectors = new Map([
 	["fullscreen", "0:"],
 	["has", "5:2023"],
 	["has-slotted", "0:"],
+	["heading", "0:"],
+	["headingfunction", "0:"],
 	["highlight", "0:"],
 	["host", "10:2020"],
 	["hostfunction", "10:2020"],
@@ -1911,6 +1917,13 @@ export const propertyValues = new Map([
 	["scale", new Map([["none", "10:2022"]])],
 	["translate", new Map([["none", "10:2022"]])],
 	["initial-letter", new Map([["normal", "0:"]])],
+	[
+		"interactivity",
+		new Map([
+			["auto", "0:"],
+			["inert", "0:"],
+		]),
+	],
 	[
 		"interpolate-size",
 		new Map([

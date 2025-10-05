@@ -55,7 +55,7 @@ export default {
 					const textWithoutComments = declarationText.replace(
 						commentPattern,
 						/* eslint-disable-next-line require-unicode-regexp -- we want to replace each code unit with a space */
-						match => match.replace(/[^\n]/g, " "),
+						match => match.replace(/[^\r\n\f]/g, " "),
 					);
 					const importantMatch =
 						importantPattern.exec(textWithoutComments);

@@ -363,10 +363,7 @@ export default {
 
 			"Function:exit"(node) {
 				const state = declStack.at(-1);
-				if (!state) {
-					return;
-				}
-				if (state.skipValidation) {
+				if (!state || state.skipValidation) {
 					return;
 				}
 

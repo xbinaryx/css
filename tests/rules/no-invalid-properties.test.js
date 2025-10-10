@@ -164,6 +164,12 @@ ruleTester.run("no-invalid-properties", rule, {
 			code: ":root { --a: var(--c); --b: var(--a); }\na { color: var(--b); }",
 			options: [{ allowUnknownVariables: true }],
 		},
+		"@supports (color: color(display-p3 1 1 1)) { a { --my-color: oklch(73.5% 0.1192 254.8); } }",
+		"@supports not (color: color(display-p3 1 1 1)) { a { --my-color: rgb(31 120 50); } }",
+		"@supports selector(:is(a)) { a { color: red; } }",
+		"@media (color-gamut: srgb) { a { --my-color: #f4ae8a; } }",
+		"@supports (color: color(display-p3 1 1 1)) { @media (color-gamut: p3) { a { --c: oklch(50% 0.1 120); } } }",
+		"@import 'x.css' layer(theme);",
 
 		/*
 		 * CSSTree doesn't currently support custom functions properly, so leaving
@@ -428,6 +434,21 @@ ruleTester.run("no-invalid-properties", rule, {
 			],
 		},
 		{
+			code: "@supports (color: color(display-p3 1 1 1)) { a { color: var(--my-color); } }",
+			errors: [
+				{
+					messageId: "unknownVar",
+					data: {
+						var: "--my-color",
+					},
+					line: 1,
+					column: 61,
+					endLine: 1,
+					endColumn: 71,
+				},
+			],
+		},
+		{
 			code: "a { color: var(--MY-COLOR, var(--FALLBACK-COLOR)); }",
 			errors: [
 				{
@@ -563,6 +584,23 @@ ruleTester.run("no-invalid-properties", rule, {
 					column: 50,
 					endLine: 1,
 					endColumn: 62,
+				},
+			],
+		},
+		{
+			code: ":root { --color: foo }\n@supports (color: color(display-p3 1 1 1)) { a { color: var(--color); } }",
+			errors: [
+				{
+					messageId: "invalidPropertyValue",
+					data: {
+						property: "color",
+						value: "foo",
+						expected: "<color>",
+					},
+					line: 2,
+					column: 57,
+					endLine: 2,
+					endColumn: 69,
 				},
 			],
 		},
@@ -1100,6 +1138,23 @@ ruleTester.run("no-invalid-properties", rule, {
 					column: 46,
 					endLine: 1,
 					endColumn: 51,
+				},
+			],
+		},
+		{
+			code: "@supports (color: color(display-p3 1 1 1)) { a { color: foo } }",
+			errors: [
+				{
+					messageId: "invalidPropertyValue",
+					data: {
+						property: "color",
+						value: "foo",
+						expected: "<color>",
+					},
+					line: 1,
+					column: 57,
+					endLine: 1,
+					endColumn: 60,
 				},
 			],
 		},

@@ -343,11 +343,18 @@ export default {
 			},
 
 			Function() {
-				declStack.at(-1).functionPartsStack.push([]);
+				const state = declStack.at(-1);
+				if (!state) {
+					return;
+				}
+				state.functionPartsStack.push([]);
 			},
 
 			"Function > *:not(Function)"(node) {
 				const state = declStack.at(-1);
+				if (!state) {
+					return;
+				}
 				const parts = state.functionPartsStack.at(-1);
 				const text = sourceCode.getText(node).trim();
 				parts.push(text);
@@ -356,7 +363,7 @@ export default {
 
 			"Function:exit"(node) {
 				const state = declStack.at(-1);
-				if (state.skipValidation) {
+				if (!state || state.skipValidation) {
 					return;
 				}
 

@@ -30,7 +30,10 @@ import { namedColors } from "../data/colors.js";
  * @typedef {[{
  *     available?: "widely" | "newly" | number,
  *     allowAtRules?: string[],
+ *     allowFunctions?: string[],
+ *     allowMediaConditions?: string[],
  *     allowProperties?: string[],
+ *     allowPropertyValues?: { [property: string]: string[] },
  *     allowSelectors?: string[]
  * }]} UseBaselineOptions
  * @typedef {CSSRuleDefinition<{ RuleOptions: UseBaselineOptions, MessageIds: UseBaselineMessageIds }>} UseBaselineRuleDefinition
@@ -436,21 +439,53 @@ export default {
 					allowAtRules: {
 						type: "array",
 						items: {
-							type: "string",
+							enum: Array.from(atRules.keys()),
+						},
+						uniqueItems: true,
+					},
+					allowFunctions: {
+						type: "array",
+						items: {
+							enum: Array.from(functions.keys()),
+						},
+						uniqueItems: true,
+					},
+					allowMediaConditions: {
+						type: "array",
+						items: {
+							enum: Array.from(mediaConditions.keys()),
 						},
 						uniqueItems: true,
 					},
 					allowProperties: {
 						type: "array",
 						items: {
-							type: "string",
+							enum: Array.from(properties.keys()),
 						},
 						uniqueItems: true,
+					},
+					allowPropertyValues: {
+						type: "object",
+						properties: Object.fromEntries(
+							Array.from(propertyValues.entries()).map(
+								([prop, valuesMap]) => [
+									prop,
+									{
+										type: "array",
+										items: {
+											enum: Array.from(valuesMap.keys()),
+										},
+										uniqueItems: true,
+									},
+								],
+							),
+						),
+						additionalProperties: false,
 					},
 					allowSelectors: {
 						type: "array",
 						items: {
-							type: "string",
+							enum: Array.from(selectors.keys()),
 						},
 						uniqueItems: true,
 					},
@@ -463,7 +498,10 @@ export default {
 			{
 				available: "widely",
 				allowAtRules: [],
+				allowFunctions: [],
+				allowMediaConditions: [],
 				allowProperties: [],
+				allowPropertyValues: {},
 				allowSelectors: [],
 			},
 		],
@@ -492,6 +530,16 @@ export default {
 		const allowAtRules = new Set(context.options[0].allowAtRules);
 		const allowProperties = new Set(context.options[0].allowProperties);
 		const allowSelectors = new Set(context.options[0].allowSelectors);
+		const allowFunctions = new Set(context.options[0].allowFunctions);
+		const allowMediaConditions = new Set(
+			context.options[0].allowMediaConditions,
+		);
+		const allowPropertyValuesMap = new Map();
+		for (const [prop, values] of Object.entries(
+			context.options[0].allowPropertyValues,
+		)) {
+			allowPropertyValuesMap.set(prop, new Set(values));
+		}
 
 		/**
 		 * Checks a property value identifier to see if it's a baseline feature.
@@ -504,6 +552,12 @@ export default {
 			if (namedColors.has(child.name)) {
 				return;
 			}
+
+			const allowedValues = allowPropertyValuesMap.get(property);
+			if (allowedValues?.has(child.name)) {
+				return;
+			}
+
 			const possiblePropertyValues = propertyValues.get(property);
 
 			// if we don't know of any possible property values, just skip it
@@ -537,6 +591,10 @@ export default {
 		 * @returns {void}
 		 **/
 		function checkPropertyValueFunction(child) {
+			if (allowFunctions.has(child.name)) {
+				return;
+			}
+
 			const featureStatus = functions.get(child.name);
 
 			// if we don't know of any possible property values, just skip it
@@ -715,6 +773,10 @@ export default {
 					}
 
 					if (child.type !== "Feature") {
+						continue;
+					}
+
+					if (allowMediaConditions.has(child.name)) {
 						continue;
 					}
 
